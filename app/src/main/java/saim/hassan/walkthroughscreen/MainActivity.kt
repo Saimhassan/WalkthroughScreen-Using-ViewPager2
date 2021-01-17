@@ -2,14 +2,20 @@ package saim.hassan.walkthroughscreen
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 
 class MainActivity : AppCompatActivity() {
     private lateinit var onboardingItemsAdapter: OnboardingItemsAdapter
+    private lateinit var indicatorsContainer: LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setOnBoardingItems()
+        setupIndicators()
     }
     private fun setOnBoardingItems(){
         onboardingItemsAdapter = OnboardingItemsAdapter(
@@ -32,5 +38,23 @@ class MainActivity : AppCompatActivity() {
         )
         val onboardingViewPager = findViewById<ViewPager2>(R.id.onboardingViewPager)
         onboardingViewPager.adapter = onboardingItemsAdapter
+    }
+
+    private fun setupIndicators(){
+        indicatorsContainer = findViewById(R.id.indicatorsContainer)
+        val indicators = arrayOfNulls<ImageView>(onboardingItemsAdapter.itemCount)
+        val layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+        layoutParams.setMargins(8,0,8,0)
+        for (i in indicators.indices){
+            indicators[i] = ImageView(applicationContext)
+            indicators[i]?.let {
+                it.setImageDrawable(
+                        ContextCompat.getDrawable(applicationContext,
+                        R.drawable.indicator_inactive_background)
+                )
+                it.layoutParams = layoutParams
+                indicatorsContainer.addView(it)
+            }
+        }
     }
 }
