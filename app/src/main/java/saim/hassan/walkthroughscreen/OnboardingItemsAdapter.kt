@@ -1,5 +1,6 @@
 package saim.hassan.walkthroughscreen
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -10,15 +11,21 @@ class OnboardingItemsAdapter(private val onboardingItems:List<OnboardingItem>) :
 RecyclerView.Adapter<OnboardingItemsAdapter.OnboardingItemViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnboardingItemViewHolder {
-        TODO("Not yet implemented")
+        return OnboardingItemViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                        R.layout.onboarding_item_container,
+                        parent,
+                        false
+                )
+        )
     }
 
     override fun onBindViewHolder(holder: OnboardingItemViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bind(onboardingItems[position])
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return onboardingItems.size
     }
 
     inner class OnboardingItemViewHolder(view: View) : RecyclerView.ViewHolder(view){
