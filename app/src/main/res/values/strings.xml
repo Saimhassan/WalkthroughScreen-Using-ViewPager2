@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Walkthrough Screen</string>
+    <string name="get_started">Get Started</string>
+    <string name="skip">Skip</string>
 </resources>
