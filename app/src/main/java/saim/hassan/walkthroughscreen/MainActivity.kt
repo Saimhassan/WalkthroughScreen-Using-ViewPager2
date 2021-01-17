@@ -6,6 +6,7 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 
 class MainActivity : AppCompatActivity() {
@@ -45,6 +46,8 @@ class MainActivity : AppCompatActivity() {
                 setCurrentIndicator(position)
             }
         })
+        (onboardingViewPager.getChildAt(0) as RecyclerView).overScrollMode =
+                RecyclerView.OVER_SCROLL_NEVER
     }
 
     private fun setupIndicators(){
