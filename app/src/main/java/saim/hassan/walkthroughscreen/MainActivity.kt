@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setOnBoardingItems()
         setupIndicators()
+        setCurrentIndicator(0)
     }
     private fun setOnBoardingItems(){
         onboardingItemsAdapter = OnboardingItemsAdapter(
@@ -38,6 +39,12 @@ class MainActivity : AppCompatActivity() {
         )
         val onboardingViewPager = findViewById<ViewPager2>(R.id.onboardingViewPager)
         onboardingViewPager.adapter = onboardingItemsAdapter
+        onboardingViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                setCurrentIndicator(position)
+            }
+        })
     }
 
     private fun setupIndicators(){
@@ -54,6 +61,23 @@ class MainActivity : AppCompatActivity() {
                 )
                 it.layoutParams = layoutParams
                 indicatorsContainer.addView(it)
+            }
+        }
+    }
+    private fun setCurrentIndicator(position: Int){
+      val childCount = indicatorsContainer.childCount
+        for (i in 0 until childCount){
+            val imageView = indicatorsContainer.getChildAt(i) as ImageView
+            if (i == position){
+                imageView.setImageDrawable(ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.indicator_active_background
+                ))
+            }else{
+                imageView.setImageDrawable(ContextCompat.getDrawable(
+                        applicationContext,
+                        R.drawable.indicator_inactive_background
+                ))
             }
         }
     }
